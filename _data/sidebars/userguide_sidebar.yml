@@ -27,8 +27,8 @@ entries:
     - title: High Level Overview
       url: /userguide_overview.html
       output: web, pdf
-	  
-    - title: WebRTC
+
+    - title: WebRTC Overview
       url: /userguide_webrtc.html
       output: web, pdf
 	  
