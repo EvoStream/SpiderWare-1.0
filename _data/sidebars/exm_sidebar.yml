@@ -1,0 +1,42 @@
+# This is your sidebar TOC. The sidebar code loops through sections here and provides the appropriate formatting.
+
+
+entries:
+- title: Sidebar
+  product: Exchange Module (ExM)
+#  version: 1.0
+  folders:
+
+  - title:
+    output: pdf
+    type: frontmatter
+    folderitems:
+    - title:
+      url: /titlepage
+      output: pdf
+      type: frontmatter
+    - title:
+      url: /tocpage
+      output: pdf
+      type: frontmatter
+
+  - title: Discussion
+    output: web, pdf
+
+    folderitems:
+    - title: Overview
+      url: /exm_overview.html
+      output: web, pdf
+
+    folderitems:
+    - title: Installing ExM
+      url: /exm_installation.html
+      output: web, pdf
+
+    - title: Configuring ExM
+      url: /exm_configuration.html
+      output: web, pdf
+
+    - title: Signaling Server
+      url: /exm_signalingserver.html
+      output: web, pdf

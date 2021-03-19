@@ -1,90 +1,123 @@
 ---
 title: Overview
-keywords: EMS
+keywords: spiderware
 sidebar: home_sidebar
 permalink: /home_overview.html
 folder: home
 toc: false
 ---
 
-This document provides instructions on how to use the EvoStream Media Server (EMS). It will cover the basics of starting the server as well as some advanced topics like modifying configuration files
-
-This document is written for users of the EMS. It is expected that readers have a basic understanding of multimedia streaming and the technologies required to perform multimedia streaming.
+------
 
 
 
-## What is EMS?
+## What is SpiderWare?
 
-EvoStream is an enterprise-strength media server capable of delivering live and on-demand content to any screen with an unbeatable cost of ownership. With EvoStream, audio/video/data delivery can be expanded to all popular media platforms including Adobe Flash, Apple iOS devices and QuickTime, IPTV, Microsoft Silverlight, Android, Blackberry, and other 3GPP devices into a single workflow.
-
-
-
-## Why Use EMS?
-
-EvoStream's unique architecture significantly increases I/O performance compared to Java-based media servers, and is the only unified media server capable of running on virtually any platform (Linux, Windows, Mac OSX, etc.) including embedded devices (encoders, IP cameras, DVRs, and more).
+SpiderWare is a WebRTC based streaming application that supports direct peering between HTML5 browsers and any device that supports WebRTC. SpiderWare’s flexible architecture allows it to be readily integrated with any application to empower it  with peer-to-peer audio, video and meta-data streaming within any network environment.  To speed up your time to market, SpiderWare's team of streaming experts helps you develop, maintain and deploy your solution successfully.
 
 
 
-## What are the Key Features and Benefits of the EMS?
+## Features of SpiderWare
 
-EvoStream Media Server is not just a multi-format, multi-protocol server that delivers media rich content across multiple screens and platforms. It delivers enterprise strength content at a cost-lowering performance. Simply put, EvoStream is the most efficient and flexible streaming server available. It delivers enterprise strength content at a cost-lowering performance. For a better understanding, refer to the picture and descriptions below.
+- **H264 and G711 Support**
 
-![](..images/home/intro1.jpg)
+Supports transport of H264 and G711 codecs along with other codecs that can be easily added such as VP8/VP9 for video, and Opus for audio.
 
+- **Two-way Audio Support**
 
+Full support of two-way audio communication.
 
-- **Next Generation Streaming**
+- **Acoustic Echo Cancellation**
 
-Stream directly to HTML5 browsers with **sub-second** latency! No Plugins, No custom apps!Peer to peer streaming eliminating the vast majority of operating costs!Metadata delivered in frame-aligned real-time
+Built-in AEC and noise reduction mechanisms.
 
-- **Highly Efficient**
+- **Jitter Buffer and Error Resilincy Mechanisms**
 
-The EMS has the smallest CPU and memory footprint possible while still being capable of handling approximately **2,000 simultaneous connections** per Intel style CPU core. In other words, **never** max out on hardware resources before reaching bandwidth limitations.
+Mitigates effects of packet loss and unreliable networks.
 
-- **Extensible**
+- **Native Stream Ingest**
 
-Never write custom modules again or be limited to a single programming language to extend server functionality for applications and infrastructure. The EMS has a diverse set of run-time APIs including standard HTTP calls, PHP, Lua, or C++, allowing for quick and easy integration of EvoStream into existing workflows.
+Capture Video/Audio through C API.
 
-Along with the Runtime API, the EMS also provides an Event Notification System, which allows users to completely tailor the behavior of the EMS. Automate stream routing, dynamically create HLS or HDS, or simply monitor server activities with a simple RESTful monitor!
+- **HTML5 Player Library**
 
-- **Cross Platform**
+Video and audio playback with audio transmission from a browser.
 
-Built from the ground-up to be truly platform agnostic and capable of being delivered on virtually any operating system including embedded systems such as encoders, IP cameras, DVRs, and more!
+- **iOS and Android player libraries**
 
-- **Scalable**
+Video and audio playback with audio transmission from mobile devices.
 
-Whether serving a few users to hundreds of thousands, EvoStream can meet live and on-demand streaming needs through robust load-balancing allowing the infrastructure to infinitely scale as needed while keeping the hardware and licensing costs at an absolute minimum.
+- **Basic Streaming Support**
 
-- **Reliable**
+Recording Features
 
-Proven and tested under high-traffic environments and deployed worldwide by enterprise content publishers and service providers that demand maximum uptime and reliability.
+- **Bi-Directional Metadata Delivery**
 
+Support for popular protocols at your disposal at every level of your streaming workflow.
 
+- **Recording Features**
 
-## How Does the EMS Work?
+Network Video Recorder (NVR).
 
-EvoStream Media Server runs as a separate application which users can send video and audio streams to. Users can then connect to the EMS with a variety of players or other servers and use the Runtime API to push streams out or pull new streams in.
-
-- **Stream Routing**
-
-EvoStream's rich set of APIs includes **pull/push streaming**, which allows users to easily publish or consume RTMP/RTSP/HLS/MPEG-TS/etc streams to and from other locations such as a CDN or a service provider.
-
-![](..images/home/intro2.jpg)
+- **Bi-Directional Metadata Delivery**
 
 
+## Benefits of SpiderWare
 
-## Where will EMS Run?
 
-On practically everything! It runs on Windows, Linux, Mac OSX, BSD and Solaris. It can be hosted on a robust server or on a small ARM based IP Camera, or anything in-between.
+- **Deployment**
 
-Specifically, the EMS can be run on:
+If you already have an existing solution, you can further enhance it by integrating SpiderWare. If you are starting from scratch, you can use SpiderWare as a stand-alone system to build your product on.
 
-- Windows: 10 x64, 8.1 x64, 8 x64, 7 x64, Server 2008, Server 2012, Server 2012 R2
+- **Ease of Integration**
+
+Link directly to SpiderWare as a library.Alternatively, SpiderWare can run as a separate process, that your system can talkto via inter-process communication (IPC).
+
+- **Small Footprint**
+
+SpiderWare has a binary footprint as small as 4MB!This gives it the flexibility to be deployed either as a standard application or as an embedded solution.
+
+- **High Connectivity**
+
+By employing the Interactive Connectivity Establishment (ICE) protocol in combination with STUN and TURN protocols, establishing peer-to-peer connections between two endpoints is simple and quick.
+
+- **Cross-Platform**
+
+Seamless interoperability and functional parity across web, mobile and desktop.
+
+- **Secure Streaming**
+
+All Audio, Video and meta-data streams are securely peer-to-peer encrypted, as is the signaling mechanism.
+
+
+- **Fully Customizable**
+
+SpiderWare embeds seamlessly in your application or device, without interfering with your brand experience. You have full control to create the website or application you want.
+
+
+- **SpiderWare Ecosystem**
+
+SpiderWare enables devices to ‘talk’ to each other. Given this premise, it is possible to create an ecosystem where SpiderWare powered devices can exchange information and work together
+
+
+## Deployment
+On practically everything! It runs on Windows, Linux, Mac OSX. It can be hosted on a robust server or on a small ARM based IP Camera, or anything in-between.
+
+Specifically, SpiderWare can be deployed on the following:
+
+
+- **Embedded Deployment**
+
+With a lightweight footprint Spiderware can be embedded in a variety of IoT devices. (e.g. medical devices, surveillance cameras, smart home devices, watches or drones).
+
+- **Cloud Deployment**
+
+SpiderWare can be deployed as a cloud-based solution to allow for the development of traditional web conferencing applications that run in a browser (e.g. live chat applications, video conferencing or gaming).
+
+- **Server Deployment**
+
+SpiderWare can be deployed on different operating systems.
+
+- Windows: 10 x64, Server 2012, Server 2012 R2
 - Linux: Debian, CentOS, RedHat, Ubuntu, openSUSE, and others
 - Mac OSX
-- FreeBSD
-- OpenBSD
-- Raspbian
-
-
-**Note:** starting release v1.7.1, EMS will only support 64bit machines
