@@ -22,6 +22,9 @@ entries:
 
   - title: Discussion
     output: web, pdf
+    
+  - title: Overview
+    output: web, pdf
 
     folderitems:
     - title: High Level Overview
@@ -31,7 +34,7 @@ entries:
     - title: WebRTC Overview
       url: /userguide_webrtc.html
       output: web, pdf
-	  
+
     - title: WebRTC Signaling
       url: /userguide_webrtcsignaling.html
       output: web, pdf
@@ -63,34 +66,3 @@ entries:
     - title: Starting SpiderWare
       url: /userguide_startspiderware.html
       output: web, pdf
-
-  - title: SpiderWare Configuration Files
-    output: web, pdf
-
-    folderitems:
-    - title: config.json
-      url: /userguide_config.html
-      output: web, pdf
-
-    - title: spiderware.exe
-      url: /userguide_spiderwareexe.html
-      output: web, pdf
-
-
-  - title: Using the SpiderWare
-    output: web, pdf
-
-
-  - title: How To's
-    output: web, pdf
-
-  - title: Appendix
-    output: web, pdf
-	
-    folderitems:
-    - title: Glossary
-      url: /userguide_glossary.html
-      output: web, pdf
-
-
-
