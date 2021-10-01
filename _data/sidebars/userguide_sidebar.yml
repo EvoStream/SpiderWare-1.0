@@ -23,46 +23,134 @@ entries:
   - title: Discussion
     output: web, pdf
     
-  - title: Overview
+  - title: Installation
     output: web, pdf
 
     folderitems:
-    - title: High Level Overview
-      url: /userguide_overview.html
+    - title: Installation in Linux
+      url: /userguide_installlinuxos.html
       output: web, pdf
 
-    - title: WebRTC Overview
-      url: /userguide_webrtc.html
+    - title: Installation in Windows
+      url: /userguide_winos.html
       output: web, pdf
 
-    - title: WebRTC Signaling
-      url: /userguide_webrtcsignaling.html
-      output: web, pdf
 
-  - title: Getting Started
+  - title: Accessing the VMS
     output: web, pdf
 
     folderitems:
-    - title: Obtaining a License
-      url: /userguide_obtainlicense.html
+    - title: Sign In
+      url: /userguide_signin.html
       output: web, pdf
 
-    - title: Installation on Windows OS
-      url: /userguide_installwinos.html
+    - title: Forgot Password
+      url: /userguide_forgotpassword.html
       output: web, pdf
 
-    - title: Installation on Linux OS
-      url: userguide_installlinuxos.html
+
+  - title: Camera Management
+    output: web, pdf
+
+    folder items:
+    - title: Add a Camera
+      url: userguide_cameraadd.html
       output: web, pdf
 
-    - title: Installation on Other OS
-      url: /userguide_installotheros.html
+    - title: Edit a Camera
+      url: /userguide_cameraedit.html
       output: web, pdf
 
-    - title: File Descriptions
-      url: /userguide_filedescriptions.html
+    - title: Remove a Camera
+      url: /userguide_cameraremove.html
       output: web, pdf
 
-    - title: Starting SpiderWare
-      url: /userguide_startspiderware.html
+    - title: Add a Camera Group
+      url: /userguide_cameragroupadd.html
+      output: web, pdf
+      
+    - title: Edit a Camera Group
+      url: /userguide_cameragroupedit.html
+      output: web, pdf
+      
+    - title: Remove a Camera Group
+      url: /userguide_cameragroupremove.html
+      output: web, pdf
+      
+      
+  - title: Streaming Cameras
+    
+    folder items:
+    - title: Add a Camera
+      url:  /userguide_streamcameras.html
+      output: web, pdf     
+        
+        
+  - title: Record Management
+    output: web, pdf
+        
+    folder items:
+    - title: Add a Recording
+      url: /userguide_recordadd.html
+      output: web, pdf
+        
+    - title: Watch a Recording
+      url: /userguide_recordwatch.html
+      output: web, pdf
+        
+    - title: Recall a Recording
+      url: /userguide_recordrecall.html
+      output: web, pdf
+        
+    - title: Remove a Recording
+      url: /userguide_recordremove.html
+      output: web, pdf
+
+      
+  - title: User Management
+    output: web, pdf
+         
+    folder items:
+    - title: Add a User
+      url: /userguide_useradd.html
+      output: web, pdf
+        
+    - title: Edit a User
+      url: /userguide_useredit.html
+      output: web, pdf
+        
+    - title: Remove a User
+      url: /userguide_userremove.html
+      output: web, pdf
+        
+    - title: Add a User Group
+      url: /userguide_usergroupadd.html
+      output: web, pdf
+        
+    - title: Edit a User Group
+      url: /userguide_usergroupedit.html
+      output: web, pdf
+        
+    - title: Remove a User Group
+      url: /userguide_usergroupremove.html
+      output: web, pdf
+ 
+  - title: Settings
+    output: web, pdf
+
+    folder items:         
+    - title: Account Settings
+      url: /userguide_changepassword.html
+      output: web, pdf
+         
+    - title: Changing Password
+      url: /userguide_changepassword.html
+      output: web, pdf
+         
+    - title: System Settings
+      url: /userguide_changepassword.html
+      output: web, pdf
+         
+    - title: logout
+      url: /userguide_changepassword.html
       output: web, pdf
