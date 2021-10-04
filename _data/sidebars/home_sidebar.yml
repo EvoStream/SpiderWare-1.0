@@ -21,7 +21,7 @@ entries:
       type: frontmatter
 
 
-  - title: EvoStream Media Server
+  - title: Video Management System
     output: web, pdf
 
     folderitems:

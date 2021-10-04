@@ -22,7 +22,12 @@ entries:
 
   - title: Discussion
     output: web, pdf
-    
+
+    folderitems:
+    - title: Overview
+      url: /userguide_overview.html
+      output: web, pdf
+      
   - title: Installation
     output: web, pdf
 
