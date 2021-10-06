@@ -1,9 +1,9 @@
 ---
-title: Welcome to the Video Management System Documentation
+title: Welcome to the VMS Documentation
 keywords: VMS
 sidebar: home_sidebar
 permalink: index.html
 toc: false
 ---
 
-<img src="images/home/homepage.jpg"></a>
+<img src="images/home/homepage.jpg">
