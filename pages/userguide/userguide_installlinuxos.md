@@ -8,137 +8,77 @@ toc: true
 
 
 
-## Platform Verification
+## VMS APP
 
-If you are unsure if the distribution you downloaded is appropriate for your Operating System, you can use the `platformTests` program. This program is available with all distributions and provides a suite of platform compatibility tests. It can be found in the bin directory.
-
-On all systems, open a console or terminal (command prompt) and run the `platformTests` executable (`./platformTests`). It will print out the results of the platform compatibility tests. If the test succeeds, then you have an appropriate distribution!
+The VMS APP is the ...
 
 
 
-## Linux Limitations
+### Installation Procedure
 
-Linux systems place limits on the number of sockets and file descriptors a process may use. This will apply to the EMS as well. If you plan on using more than 1024 connections at one time for your server, you will need to modify the following configuration file: `/etc/security/limits.conf`
+#### Pre-requisites
 
-The following lines will need to be added/modified:
+1. Install MongoDB
 
-```
-soft nofile 16384
-hard nofile 65536
-soft nproc 4096
-hard nproc 16384
-```
+   ```
+   curl -fsSL https://www.mongodb.org/static/pgp/server-4.4.asc | sudo apt-key add -
+   ```
 
-## Installation Procedure
+2. Check that key is added successfully
 
-### Linux Package (Linux apt/yum Installer)
+   ```
+   apt-key list
+   ```
 
-#### Pre-requisites:
+3. Create a file in the sources.list.d directory named mongodb-org-4.4.list
 
-- Disable firewall making sure that keys will be downloaded
+   ```
+   echo “deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.4 multiverse” | sudo tee /etc/apt/sources.list.d/mongodb-org-4.4.list
+   ```
 
-- Administrative privileges are required. This can be accomplished in many ways.
+4. Update server local package index
 
-  If the sudo utility is available:
+   ```
+   sudo apt update
+   ```
 
-  ```
-  $ su –
-  ```
+5. Install MongoDB
 
-  If the sudo utility is not available:
-
-  ```
-  $ sudo su –
-  ```
-
-  **Note:** The prompt changes from `$` to `#` when administrative privileges are enabled.
+   ```
+   sudo apt install mongodb-org
+   ```
 
 
 
-#### Installation Procedure:
+#### MongoDB Service
 
-1\. Retrieve the script used to install the EvoStream software repository and store it
+1. Start the MongoDB service
 
-- Debian based Linux distributions (Ubuntu or Debian)
+   ```
+   sudo systemctl start mongod.service
+   ```
 
-  ```
-  # wget http://apt.evostream.com/installkeys.sh -O /tmp/installkeys.sh
-  ```
+2. Check the status of the MongoDB service
 
-- RedHat based Linux distributions (CentOS, Fedora, RHEL)
+   ```
+   sudo systemctl status mongod
+   ```
 
-  ```
-  # curl http://yum.evostream.com/installkeys.sh -o /tmp/installkeys.sh
-  ```
+3. Enable the MongoDB service on startup
 
-  ​
-
-2\. Execute the script to install the EvoStream software repository and keys
-
-```
-# sh /tmp/installkeys.sh
-```
-
-- If successful, the following message should be printed on the console:
-
-  ```
-  "EvoStream keys installed successfully"
-  ```
-
-At this stage, the EvoStream software repository and keys are successfully installed and you can install packages from it.
+   ```
+   sudo systemctl enable mongod
+   ```
 
 
 
-**Note:** Steps 1 and 2 above must be executed only once.
-
-The following steps are used to install the EvoStream Media Server, and can be repeated to update the EMS to the most recent release.
-
-
-
-3\. Install EvoStream Media Server.
-
-- Debian based Linux distributions (Ubuntu or Debian)
-
-  ```
-  # apt-get install evostream-mediaserver
-  ```
-
-- RedHat based Linux distributions (CentOS, Fedora, RHEL)
-
-  ```
-  # yum install evostream-mediaserver
-  ```
-
-
-
-
-#### License Installation
-
-To install the license, simply copy the `License.lic` file to `/etc/evostreamms/`.
-
-
-
-### Linux Archive (.tar.gz Distribution)
-
-You can install the EMS from a simple archive file (.tar.gz). The latest EMS Release can be found on the EvoStream website: [https://evostream.com/software-downloads/](https://evostream.com/software-downloads/).
-
-You will need to choose the most appropriate distribution for the Operating System that you are using. Once you have downloaded your distribution.
-
-Simply **extract** the EMS package. The location of the installation is not important. However, for security reasons, the EvoStream Media Server should **NOT** be installed into the web-root of the target computer (if one exists).
-
-
-
-#### License Installation
-
-To install the license, simply copy the `License.lic` file to `../config/License.lic`.
+Follow the instructions here to setup access control to protect your MongoDB installation https://docs.mongodb.com/manual/tutorial/enable-authentication/.
 
 
 
 ## Distribution Content
 
-### Linux Package
-
-**A. Configuration Files**
+**A. VMS APP**
 
 ```
 ├── etc
@@ -152,7 +92,7 @@ To install the license, simply copy the `License.lic` file to `../config/License
 │       └── whitelist.txt
 ```
 
-**B. Executable and Node Files**
+**B. VMS API**
 
 ```
 ├── usr
@@ -164,54 +104,9 @@ To install the license, simply copy the `License.lic` file to `../config/License
 │   │   ├── node-ews
 │   │   ├── node-webservices
 │   │   ├── node-webui
-│   └── share
-│       ├── evo-avconv
-│       │   └── presets
-│       │       ├── libx264-baseline.avpreset
-│       |       ├── libx264-fast.avpreset
-│       |       ├── libx264-fast.avpreset
-│       |       ├── libx264-faster.avpreset
-│       |       ├── libx264-faster.avpreset
-│       |       ├── libx264-ipod320.avpreset
-│       |       ├── libx264-ipod640.avpreset
-│       |       ├── libx264-lossless_fast.avpreset
-│       |       ├── libx264-lossless_max.avpreset
-│       |       ├── libx264-lossless_medium.avpreset
-│       |       ├── libx264-lossless_slow.avpreset
-│       |       ├── libx264-lossless_slower.avpreset
-│       |       ├── libx264-lossless_ultrafast.avpreset
-│       |       ├── libx264-main.avpreset
-│       |       ├── libx264-medium.avpreset
-│       |       ├── libx264-medium_firstpass.avpreset
-│       |       ├── libx264-placebo.avpreset
-│       |       ├── libx264-placebo_firstpass.avpreset
-│       |       ├── libx264-slow.avpreset
-│       |       ├── libx264-slow_firstpass.avpreset
-│       |       ├── libx264-slower.avpreset
-│       |       ├── libx264-slower_firstpass.avpreset
-│       |       ├── libx264-superfast.avpreset
-│       |       ├── libx264-superfast_firstpass.avpreset
-│       |       ├── libx264-ultrafast.avpreset
-│       |       ├── libx264-ultrafast_firstpass.avpreset
-│       |       ├── libx264-veryfast.avpreset
-│       |       ├── libx264-veryfast_firstpass.avpreset
-│       |       ├── libx264-veryslow.avpreset
-│       |       └── libx264-veryslow_firstpass.avpreset
-│       └── doc
-│           └── evostreamms
-│               ├── copyright
-│               ├── EvoStream Media Server EULA v2.pdf
-│               ├── README.txt
-│               └── version
-│                   ├── BUILD_DATE
-│                   ├── BUILD_NUMBER
-│                   ├── CODE_NAME
-│                   ├── OS_NAME
-│                   ├── OS_VERSION
-│                   └── RELEASE_NUMBER
 ```
 
-**B.1. Node-WebServer Files**
+**B.1. VMS OVS**
 
 ```
 ├── usr
