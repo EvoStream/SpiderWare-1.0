@@ -17,17 +17,25 @@ A Video Management Software (VMS) is the platform that brings together all the c
 
 
 
-## Components of VMS
+### Components of VMS
 
 ![](images/userguide/components.jpg)
 
-VMS Web UI - The web user interface that communicates only with the VMS API.
+#### VMS Web UI
 
-VMS API - Can be a server in a cloud or local network. It hosts a dedicated REST API web server. 
+The web user interface that communicates only with the VMS API.
 
-VMS APP - Can be a server in a cloud or local network. The VMS APP will communicate between the sources and the VMS API.
+#### VMS API
 
-SpiderWare - Can be a desktop deployment, an IP camera, a body camera, or any device with embedded SpiderWare.
+Can be a server in a cloud or local network. It hosts a dedicated REST API web server. 
+
+#### VMS APP
+
+Can be a server in a cloud or local network. The VMS APP will communicate between the sources and the VMS API.
+
+#### SpiderWare
+
+Can be a desktop deployment, an IP camera, a body camera, or any device with embedded SpiderWare.
 
 
 

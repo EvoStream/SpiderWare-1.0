@@ -8,13 +8,13 @@ toc: true
 
 
 
-## VMS APP
+## Installation Procedure
 
-The VMS APP is the ...
+### 1. Install VMS API
 
+### 2. Install VMS APP
 
-
-### Installation Procedure
+The VMS APP server functions to communicate between the sources and the VMS API.
 
 #### Pre-requisites
 
@@ -76,379 +76,163 @@ Follow the instructions here to setup access control to protect your MongoDB ins
 
 
 
+#### Mounting SpiderWare recordings and recallings folders
+
+1. Generate the key
+
+   ```
+   ssh-keygen -t rsa
+   ```
+
+2. Create .ssh folder where SpiderWare is installed
+
+   ```
+   ssh root@spiderware_host "mkdir -p .ssh"
+   ```
+
+3. Upload the generated public keys to the SpiderWare host
+
+   ```
+   cat ~/.ssh/id_rsa.pub | ssh root@spiderware_host "cat >> ~/.ssh/authorized_keys"
+   ```
+
+4. Set permissions in the SpiderWare host
+
+   ```
+   ssh root@spiderware_host "chmod 700 ~/.ssh; chmod 640 ~/.ssh/authorized_keys"
+   ```
+
+5. In the SpiderWare host,
+
+   5.a. Create the `recordings` and `recallings` folders under the Spiderware directory. The `recordings` and `recallings` folders should be present; otherwise, the calls to sshfs to mount these folders fail. **See 7.**
+
+   ```
+   The Spiderware directory should have the following structure:
+   
+   ├── spiderware
+   ├── config
+   ├── recordings
+   ├── recallings
+   ```
+
+6.  Create the recordings and recallings mount point folders under the VMS APP app directory. 
+
+   **Note:** The mount point is relative to the `recordingsFolder` defined in the configuration file.
+
+   See **config_app.md**. In the following example, the `recordingsFolder` is set to `public/recordings`.
+
+   For recordings:
+
+   ```
+   Command: `mkdir <vms app folder>/public/recordings/<mount_point>`
+   Example: `mkdir -p /home/xyz/vmsapp/public/recordings/swmp1`
+   ```
+
+   For recallings:
+
+   ```
+   Command: `mkdir <vms app folder>/public/recordings/recallings/<mount_point>`  
+   Example: `mkdir -p /home/xyz/vmsapp/public/recordings/recallings/swmp1`
+   ```
+
+7. Mount recordings and recallings folders using sshfs
+
+   ```
+   Command: `sshfs <args> <user>@<host>:<folder> <mount_point>`
+   Example: `sshfs -o allow_other,default_permissions,reconnect,ServerAliveInterval=15,ServerAliveCountMax=3 root@spiderware_host:/root/spiderware/recordings ./public/recordings/swmp1`
+   (assuming current directory is /home/xyz/vmsapp)
+   ```
+
+8. To unmount the recordings and recalling folders, do:
+
+   ```
+   - `umount <mount_point>, e.g., umount ./public/recordings/swmp1`
+   - `umount <mount_point>, e.g., umount ./public/recordings/recallings/swmp1`  
+   ```
+
+   
+
+**Notes:**
+
+- The steps described above are applicable to both Linux and MacOS. However, to work under MacOS, sshfs requires osxfuse.
+    `brew install osxfuse sshfs`
+
+- To mount folders under Windows, use https://github.com/billziss-gh/sshfs-win.  
+
+
+
+### 3. Install VMS OVS
+
+
+
+### 4. Install SpiderWare
+
+To install SpiderWare, please refer to https://spiderdocs.evostream.com/index.html
+
+Make sure to enter the correct VMS APP URL in the configuration file:
+
+```
+"events":
+{
+	"sinks": [
+		{
+			"type": "sio",
+			"url": "https://vmsapp.evostream.com:3000/nsSpiderware"    >VMS APP URL
+		}
+	]
+}
+```
+
+
+
 ## Distribution Content
 
 **A. VMS APP**
 
 ```
-├── etc
-│   └── evostreamms
-│       ├── blacklist.txt
-│       ├── config.lua
-│       ├── server.cert
-│       ├── server.key
-│       ├── users.lua
-│       ├── webconfig.lua
-│       └── whitelist.txt
+├── vmsp-app-linux
+│   └── config
+│       └── config.js
+│   └── docs
+│       ├── config_app.md
+│       ├── mount_sw_rec_app.md
+│       ├── prerequisites_app.md
+│       └── README_app.md
+│   └── logs (will be generated once the application run)
+└   └── vma-app
 ```
 
 **B. VMS API**
 
 ```
-├── usr
-│   ├── bin
-│   │   ├── evo-avconv
-│   │   ├── evo-mp4writer
-│   │   ├── evo-node
-│   │   ├── evostreamms
-│   │   ├── node-ews
-│   │   ├── node-webservices
-│   │   ├── node-webui
+├── vmsp-api-linux
+│   └── config
+│       └── config.js
+│   └── docs
+│       ├── config_api.md
+│       ├── prerequisites_api.md
+│       └── README_api.md
+│   └── logs (will be generated once the application run)
+└   └── vms-api
 ```
 
 **B.1. VMS OVS**
 
 ```
-├── usr
-│   ├── bin
-│   │   ├── node-ews
-│   │   |   ├── evo-phpengine
-│   │   |   ├── ews.node
-│   │   |   ├── fileRotateSize.js
-│   │   |   ├── helper.js
-│   │   |   ├── node-ews.js
-│   │   |   ├── node_modules
-│   │   │   |   ├── basic-auth
-│   │   │   |   ├── connect
-│   │   │   |   └── winston
-│   │   |   └── req_handlers     
-│   │   │   |   ├── authproxy.js
-│   │   │   |   ├── default.js
-│   │   │   |   ├── httpstream.js
-│   │   │   |   ├── php.js
-│   │   │   |   └── resphdrs.js  
-```
-
-**B.2. Node-Webservices Files**
-
-```
-├── usr
-│   ├── bin
-│   │   ├── node-webservices
-│   │   |   ├── app.js
-│   │   |   ├── base_plugins
-│   │   │   |   ├── basehdsplugin.js
-│   │   │   |   ├── basehlsplugin.js
-│   │   │   |   └── baseplugin.js    
-│   │   |   ├── bin
-│   │   │   |   └── www       
-│   │   |   ├── config
-│   │   │   |   ├── logging.json
-│   │   │   |   └── plugins.json    
-│   │   |   ├── core_modules
-│   │   │   |   └── ems-api-core.js      
-│   │   |   ├── LICENSE
-│   │   |   ├── logs
-│   │   │   |   └── evowebservices.log          
-│   │   |   ├── node_modules
-│   │   │   |   ├── body-parser
-│   │   │   |   ├── comment-json
-│   │   │   |   ├── concat-stream
-│   │   │   |   ├── debug
-│   │   │   |   ├── express
-│   │   │   |   ├── morgan
-│   │   │   |   ├── request-enhanced
-│   │   │   |   ├── s3
-│   │   │   |   └── winston
-│   │   |   ├── package.json
-│   │   |   ├── plugins
-│   │   │   |   ├── amazondashupload.js
-│   │   │   |   ├── amazonhdsupload.js
-│   │   │   |   ├── amazonhlsupload.js
-│   │   │   |   ├── streamautorouter.js
-│   │   │   |   ├── streamloadbalancer.js
-│   │   │   |   └── streamrecorder.js   
-│   │   |   ├── README.md
-│   │   |   ├── README.txt
-│   │   |   ├── routes
-│   │   │   |   ├── evowebservices.js
-│   │   │   |   └── index.js      
-│   │   |   ├── services
-│   │   │   |   └── plugin-service.js
-│   │   |   ├── views
-│   │   │   |   ├── error.hbs
-│   │   │   |   ├── index.hbs
-│   │   │   └── └── layout.hbs
-```
-
-**B.3. Node-WebUI Files**
-
-```
-├── usr
-│   ├── bin
-│   │   ├── node-webui
-│   │   |   ├── app.js
-│   │   |   ├── auth
-│   │   │   │   ├── passport-config.js
-│   │   │   │   └── restrict.js
-│   │   |   ├── bin
-│   │   │   │   └── webui_activate
-│   │   |   ├── config
-│   │   │   │   ├── dir-config.js
-│   │   │   │   ├── logging.json
-│   │   │   │   └── social-auth-config.js
-│   │   |   ├── core_modules
-│   │   │   │   ├── ems-api-core.js
-│   │   │   │   ├── ems-api-proxy.js 
-│   │   │   │   ├── ems-config-core.js
-│   │   │   │   └──  socket-io-api.js
-│   │   |   ├── data
-│   │   │   │   ├── help.json
-│   │   │   │   └──  user.json   
-│   │   |   ├── logs
-│   │   │   │   ├── webui.log 
-│   │   |   ├── models
-│   │   │   │   ├── list-config.js
-│   │   │   │   ├── list-streams.js
-│   │   │   │   └──  user.js
-│   │   |   ├── node_modules
-│   │   │   │   └──  [168 node_module files]
-│   │   |   ├── public
-│   │   │   │   ├── css
-│   │   │   │   ├── fonts
-│   │   │   │   ├── images
-│   │   │   │   ├── js
-│   │   │   │   └──  media
-│   │   |   ├── routes
-│   │   │   │   ├── api-explorer.js   
-│   │   │   │   ├── dashboard.js
-│   │   │   │   ├── ems.js
-│   │   │   │   ├── index.js
-│   │   │   │   ├── tream.js
-│   │   │   │   └── users.js
-│   │   |   ├── services 
-│   │   │   │   └──  stream-service.js
-│   │   |   ├── views
-│   │   │   │   ├── admin
-│   │   │   │   ├── index
-│   │   │   │   ├── error.hbs
-│   │   │   └── └──  index.hbs  
-```
-
-**4. XML Files**
-
-```
-└── var
-    ├── evostreamms
-    │   ├── media
-    │   └── xml
-    │       ├── auth.xml
-    │       ├── bandwidthlimits.xml
-    │       ├── connlimits.xml
-    │       ├── ingestpoints.xml
-    │       └── pushPullSetup.xml
-```
-
-**5. Evo-Webroot Files**
-
-```
-└── var
-    ├── evo-webroot
-    │   ├── demo
-    │   │   ├── css
-    │   │   ├── evoplayers.html
-    │   │   ├── evo.png
-    │   │   ├── evowsabrvideo.html
-    │   │   ├── js
-    │   │   │   └── evohtml5player-latest.bundle.js 
-    │   │   ├── jsonMetaTest.html
-    │   │   ├── jsonMetaWriteTest.html
-    │   │   └── loading.gif
-    │   ├── clientaccesspolicy.xml
-    │   └── crossdomain.xml    
-```
-
-**6. Log Files**
-
-```
-└── var
-    ├── log
-    │   └── evostreamms
-```
-
-**7. Executable Files**
-
-```
-└── var
-    └── run
-        └── evostreamms
+├── vmsp-ovs-linux
+│   └── config
+│       └── config.js
+│   └── docs
+│       ├── config_ovs.md
+│       ├── prerequisites_ovs.md
+│       └── README_ovs.md
+│   └── logs (will be generated once the application run)
+└   └── vms-ovs
 ```
 
 
 
-
-
-### Linux Archive
-
-```
-./EvoStream Archive
-  ├── bin
-  │   ├── node-evowebservices
-  │   │   ├── base_plugins
-  │   │   │	  ├── basehdsplugin.js
-  │   │   │	  ├── basehlsplugin.js
-  │   │   │	  └── baseplugin.js    
-  │   │   ├── bin
-  │   │   │   └── www       
-  │   │   ├── config
-  │   │   │	  ├── logging.json
-  │   │   │	  └── plugins.json    
-  │   │   ├── core_modules
-  │   │   │	  └── ems-api-core.js       
-  │   │   ├── logs
-  │   │   │	  └── evowebservices.log          
-  │   │   ├── node_modules
-  │   │   │	  ├── body-parser
-  │   │   │	  ├── comment-json
-  │   │   │	  ├── concat-stream
-  │   │   │	  ├── debug
-  │   │   │   ├── express
-  │   │   │   ├── morgan
-  │   │   │	  ├── request-enhanced
-  │   │   │	  ├── s3
-  │   │   │	  └── winston
-  │   │   ├── plugins
-  │   │   │	  ├── amazondashupload.js
-  │   │   │	  ├── amazonhdsupload.js
-  │   │   │	  ├── amazonhlsupload.js
-  │   │   │	  ├── streamautorouter.js
-  │   │   │	  ├── streamloadbalancer.js
-  │   │   │	  └── streamrecorder.js   
-  │   │   ├── routes
-  │   │   │	  ├── evowebservices.js
-  │   │   │	  └── index.js      
-  │   │   ├── services
-  │   │   │	  └── plugin-service.js
-  │   │   ├── views
-  │   │   │   ├── error.hbs
-  │   │   │	  ├── index.hbs
-  │   │   │	  └── layout.hbs
-  │   │   ├── app.js
-  │   │   ├── LICENSE
-  │   │   ├── package.json
-  │   │   ├── README.md
-  │   ├── └── README.txt  
-  │   ├── node-ews
-  │   │   ├── node_modules
-  │   │   │   ├── basic-auth
-  │   │   │   ├── connect
-  │   │   │   └── winston 
-  │   │   ├── req_handlers
-  │   │   │   ├── authproxy.js
-  │   │   │   ├── default.js
-  │   │   │   ├── httpstream.js
-  │   │   │   ├── php.js
-  │   │   │   └── resphdrs.js  
-  │   │   ├── evo-phpengine.exe
-  │   │   ├── ews.node
-  │   │   ├── fileRotateSize.js
-  │   │   ├── helper.js
-  │   │   └── node-ews.js
-  │   ├── node-webui
-  │   │   ├── auth
-  │   │   │   ├── passport-config.js
-  │   │   │   └── restrict.js
-  │   │   ├── bin
-  │   │   │   └── webui_activate
-  │   │   ├── config
-  │   │   │   ├── dir-config.js
-  │   │   │   ├── logging.json
-  │   │   │   └── social-auth-config.js
-  │   │   ├── core_modules
-  │   │   │   ├── ems-api-core.js
-  │   │   │   ├── ems-api-proxy.js 
-  │   │   │   ├── ems-config-core.js
-  │   │   │   └── socket-io-api.js
-  │   │   ├── data
-  │   │   │   ├── help.json
-  │   │   │   └── user.json   
-  │   │   ├── logs
-  │   │   │   └── webui.log 
-  │   │   ├── models
-  │   │   │   ├── list-config.js
-  │   │   │   ├── list-streams.js
-  │   │   │   └── user.js
-  │   │   ├── node_modules
-  │   │   │   └── [168 node_module files]
-  │   │   ├── public
-  │   │   │   ├── css
-  │   │   │   ├── fonts
-  │   │   │   ├── images
-  │   │   │   ├── js
-  │   │   │   └── media
-  │   │   ├── routes
-  │   │   │   ├── api-explorer.js   
-  │   │   │   ├── dashboard.js
-  │   │   │   ├── ems.js
-  │   │   │   ├── index.js
-  │   │   │   ├── stream.js
-  │   │   │   └── users.js
-  │   │   ├── services 
-  │   │   │   └── stream-service.js
-  │   │   ├── views
-  │   │   │   ├── admin
-  │   │   │   ├── index
-  │   │   │   ├── error.hbs
-  │   │   │   └── index.hbs  
-  │   │   ├── app.js
-  │   │   ├── LICENSE
-  │   │   └── package.json     
-  │   ├── emsTranscoder.sh
-  │   ├── evo-avconv
-  │   ├── evo-mp4writer
-  │   ├── evostreamms
-  │   ├── platformTests
-  │   ├── run_console_ems.sh
-  │   ├── run_console_webui.sh
-  │   ├── run_daemon_ems.sh
-  │   ├── run_daemon_webui.sh  
-  │   └── run_stop_webui.sh
-  ├── config
-  │   ├── auth.xml
-  │   ├── bandwidthlimits.xml
-  │   ├── blacklist.txt
-  │   ├── config.lua
-  │   ├── connlimits.xml
-  │   ├── ingestpoints.cml
-  │   ├── pushPullSetup.xml
-  │   ├── server.cert
-  │   ├── server.key
-  │   ├── users.lua
-  │   ├── webconfig.json
-  │   └── whitelist.txt
-  ├── evo-avconv-presets
-  │   └── [30 transcode preset files]
-  ├── evo-webroot
-  │   ├── demo
-  │   │   ├── css
-  │   │   │   ├── common.css
-  │   │   │	  └── common.css.orig  
-  │   │   ├── js
-  │   │   │	  └── evohtml5player-latest.bundle.js 
-  │   │   ├── evo.png
-  │   │   ├── evoplayers.html
-  │   │   ├── evowsabrvideo.html
-  │   │   ├── jsonMetaTest.html
-  │   │   ├── jsonMetaWriteTest.html
-  │   │   └── loading.gif
-  │   ├── clientaccesspolicy.xml
-  │   └── crossdomain.xml
-  ├── logs
-  ├── media
-  ├── BUILD_DATE
-  ├── Evostream Media Server EULA v2.pdf
-  └── README.txt
-```
+### 
 
 
 
